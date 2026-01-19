@@ -1,66 +1,202 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🌟 Perfumería Luxury - Backend API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+E-commerce de perfumería con API REST completa desarrollado con Laravel 10.
 
-## About Laravel
+## 🎯 Descripción
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Sistema backend para tienda online de perfumes exclusivos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Stack Tecnológico
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Framework**: Laravel 10
+- **Base de datos**: MySQL
+- **Autenticación**: Laravel Sanctum
+- **PHP**: 8.1+
+- **Composer**: Gestor de dependencias
 
-## Learning Laravel
+## 📋 Características
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Backend API
+- ✅ Autenticación con tokens (Sanctum)
+- ✅ Sistema de roles (Admin/Customer)
+- ✅ CRUD completo de productos
+- ✅ Gestión de categorías
+- ✅ Sistema de pedidos
+- ✅ Carrito de compras
+- ✅ Filtros y búsqueda
+- ✅ Panel de administración
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Modelos y Relaciones
+- **User**: Usuarios con roles
+- **Category**: Categorías de perfumes
+- **Product**: Productos con stock y precios
+- **Order**: Pedidos de clientes
+- **OrderItem**: Detalle de pedidos
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Instalación
 
-## Laravel Sponsors
+### Requisitos
+- PHP >= 8.1
+- Composer
+- MySQL
+- Git
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Pasos
+```bash
+# 1. Clonar repositorio
+git clone https://github.com/jpiedradev/perfumeria-api.git
+cd perfumeria-api
 
-### Premium Partners
+# 2. Instalar dependencias
+composer install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+# 3. Configurar entorno
+cp .env.example .env
+php artisan key:generate
 
-## Contributing
+# 4. Configurar base de datos en .env
+DB_DATABASE=perfumeria_db
+DB_USERNAME=root
+DB_PASSWORD=
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 5. Crear base de datos
+# Crear 'perfumeria_db' en MySQL
 
-## Code of Conduct
+# 6. Migrar base de datos
+php artisan migrate
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 7. Insertar datos de prueba
+# Ejecutar SQL proporcionado en /database/sql/seed_data.sql
 
-## Security Vulnerabilities
+# 8. Iniciar servidor
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+La API estará disponible en: `http://localhost:8000`
 
-## License
+## 📚 Endpoints API
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Autenticación
+```
+POST   /api/register      - Registrar usuario
+POST   /api/login         - Iniciar sesión
+POST   /api/logout        - Cerrar sesión
+GET    /api/user          - Usuario actual
+```
+
+### Productos
+```
+GET    /api/products           - Listar productos
+GET    /api/products/{id}      - Ver producto
+GET    /api/products/featured  - Productos destacados
+```
+
+### Categorías
+```
+GET    /api/categories    - Listar categorías
+```
+
+### Pedidos (requiere autenticación)
+```
+POST   /api/orders        - Crear pedido
+GET    /api/orders        - Mis pedidos
+GET    /api/orders/{id}   - Detalle de pedido
+```
+
+### Admin (requiere rol admin)
+```
+POST   /api/admin/products       - Crear producto
+PUT    /api/admin/products/{id}  - Actualizar producto
+DELETE /api/admin/products/{id}  - Eliminar producto
+GET    /api/admin/orders         - Todos los pedidos
+PATCH  /api/admin/orders/{id}    - Cambiar estado
+```
+
+## 📊 Estructura de Base de Datos
+```
+users
+├── id
+├── name
+├── email
+├── password
+├── role (customer/admin)
+├── phone
+└── address
+
+categories
+├── id
+├── name
+├── slug
+└── description
+
+products
+├── id
+├── category_id (FK)
+├── name
+├── slug
+├── description
+├── price
+├── stock
+├── image
+├── brand
+├── size
+└── featured
+
+orders
+├── id
+├── user_id (FK)
+├── total
+├── status
+├── shipping_address
+└── phone
+
+order_items
+├── id
+├── order_id (FK)
+├── product_id (FK)
+├── quantity
+└── price
+```
+
+## 🎨 Frontend
+
+El frontend con React + Vite + Shadcn/ui + Aceternity UI estará en un repositorio separado:
+- Repositorio: `perfumeria-web` (próximamente)
+
+## 📦 Datos de Prueba
+
+- **3 Usuarios**: 1 admin, 2 clientes
+- **3 Categorías**: Nicho, Diseñador, Árabe
+- **16 Productos**: Perfumes realistas con precios variados
+
+## 🔧 Comandos Útiles
+```bash
+# Limpiar caché
+php artisan optimize:clear
+
+# Ver rutas
+php artisan route:list
+
+# Consola interactiva
+php artisan tinker
+
+# Resetear BD
+php artisan migrate:fresh
+
+# Info de BD
+php artisan db:show
+```
+
+## 👨‍💻 Autor
+
+**Johan Piedra**
+- GitHub: [@jpiedradev](https://github.com/jpiedradev)
+- Email: jpiedra.dev@gmail.com
+
+## 📄 Licencia
+
+Este proyecto es de código abierto bajo la Licencia MIT.
+
+---
+
+⭐ **Si te gustó este proyecto, dale una estrella en GitHub**
