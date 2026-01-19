@@ -1,15 +1,17 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
-|--------------------------------------------------------------------------
+|-----------------------------------------------------
 | API Routes
-|--------------------------------------------------------------------------
+|-----------------------------------------------------
 */
 
 /// ===================================
@@ -37,15 +39,29 @@ Route::middleware('auth:sanctum')->group(function () {
     // Autenticación
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
+
+    // Pedidos
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::get('/orders/{id}', [OrderController::class, 'show']);
+    Route::post('/orders', [OrderController::class, 'store']);
+    Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel']);
 });
 
-// Ruta de prueba solo para admin
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::get('/admin/test', function () {
-        return response()->json([
-            'success' => true,
-            'message' => 'Acceso autorizado como admin',
-            'user' => auth()->user()->name,
-        ]);
-    });
+// ===================================
+// RUTAS DE ADMIN (requieren ser admin)
+// ===================================
+Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+
+    // Gestión de Pedidos
+    Route::get('/orders', [AdminController::class, 'orders']);
+    Route::get('/orders/{id}', [AdminController::class, 'orderShow']);
+    Route::patch('/orders/{id}/status', [AdminController::class, 'updateOrderStatus']);
+
+    // Gestión de Productos
+    Route::get('/products', [AdminController::class, 'products']);
+    Route::post('/products', [AdminController::class, 'storeProduct']);
+    Route::post('/products/{id}', [AdminController::class, 'updateProduct']); // POST porque incluye imagen
+    Route::delete('/products/{id}', [AdminController::class, 'deleteProduct']);
 });
